@@ -20,15 +20,20 @@ class Runner:
         self.timeStamp = 0
 
     def next(self):
-        areas = [a.copy() for a in self.areas]
-        for i,a in enumerate(self.areas):
-            sIn, sOut, iIn, iOut = 0,0,0,0
-            for j,b in enumerate(areas):
-                sOut += self.transition_matrix[i,j] * (1 - a.ratio) * a.N
-                sIn += self.transition_matrix[j,i] * (1 - b.ratio) * b.N
-                iOut += self.transition_matrix[i,j] * a.ratio * a.N
-                iIn += self.transition_matrix[j,i] * b.ratio * b.N
-            a.nextState(sIn,sOut,iIn,iOut)
+        sOut = np.zeros((len(self.areas), ))
+        iOut = np.zeros((len(self.areas), ))
+        sIn = np.zeros((len(self.areas), ))
+        iIn = np.zeros((len(self.areas), ))
+        
+        
+        for i, a in enumerate(self.areas):
+            sOut[i] = np.sum(self.transition_matrix[i,:]) * a.S
+            iOut[i] = np.sum(self.transition_matrix[i,:]) * a.I
+            sIn += a.S * self.transition_matrix[i,:]
+            iIn += a.I * self.transition_matrix[i,:]
+
+        for a, si, so, ii, io in zip(self.areas, sIn, sOut, iIn, iOut):
+            a.nextState(si, so, ii, io)
         self.timeStamp += 1
 
     def getState(self):
@@ -58,11 +63,27 @@ if __name__ == '__main__':
     beta = 0.5
     c = 0.25
     r = Runner(areaInfo,transition_matrix,initInfection,beta,c)
-    while (input() != '.'):
+    hist = []
+    for _ in range(100):
         r.next()
-        print(len(r.getHistory()))
-
-
+    history = r.getHistory()
+    for h in history:
+        hist.append(
+            {
+                "China": h["China"]["I"],
+                "United States": h["United States"]["I"],
+                "Mars": h["Mars"]["I"],
+            })
+    import matplotlib.pyplot as plt
+    cn = [h['China'] for h in hist]
+    us = [h['United States'] for h in hist]
+    ms = [h['Mars'] for h in hist]
+    plt.plot(cn, label="cn")
+    plt.plot(us, label="us")
+    plt.plot(ms, label="ms")
+    plt.legend()
+    plt.show()
+    
 
 
 
