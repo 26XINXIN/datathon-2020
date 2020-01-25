@@ -25,6 +25,14 @@ class SI(EpiModel):
         self.S = 0 
         self.I = 0
 
+    def set(self, N, S, I, timestamp, ratio, history):
+        self.N = N
+        self.S = S
+        self.I = I
+        self.timestamp = timestamp
+        self.ratio = ratio
+        self.history = history
+
     def setInitial(self, S, I, timestamp):
         self.S = S
         self.I = I
@@ -53,6 +61,11 @@ class SI(EpiModel):
         }
         print(historyOb)
         return historyOb
+
+    def copy(self):
+        copy = SI(self.beta, self.c)
+        copy.set(self.N, self.S, self.I, self.timestamp, self.ratio, self.history)
+        return copy
 
 class SIR(EpiModel):
     def __init__(self, beta, c, mu_s, mu_i, mu_r, b, v):

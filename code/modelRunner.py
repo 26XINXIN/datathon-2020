@@ -22,7 +22,8 @@ class Runner:
     def next(self):
         for i,a in enumerate(self.areas):
             sIn, sOut, iIn, iOut = 0,0,0,0
-            for j,b in enumerate(self.areas):
+            areas = [a.copy() for a in self.areas]
+            for j,b in enumerate(areas):
                 sOut += self.transition_matrix[i,j] * (1 - a.ratio) * a.N
                 sIn += self.transition_matrix[j,i] * (1 - b.ratio) * b.N
                 iOut += self.transition_matrix[i,j] * a.ratio * a.N
@@ -49,9 +50,9 @@ class Runner:
 if __name__ == '__main__':
     areaInfo = [("China", 100), ("United States", 100), ("Mars", 100)]
     transition_matrix = np.asarray([
-        [87, 10, 3],
-        [10, 80, 10],
-        [10, 10, 80]
+        [0.87, 0.1, 0.03],
+        [0.1, 0.8, 0.1],
+        [0.1, 0.1, 0.8]
     ])
     initInfection = ["China", 5]
     beta = 0.5
