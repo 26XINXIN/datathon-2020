@@ -7,33 +7,33 @@ class Runner:
     # initInfection: [country_name , number of initially infected people]
     # beta: probability of infection per contact
     # c: probability of people meeting other people
-    def __init__(self, areaInfo, transition_matrix, initInfection, beta, c):
-        self.areaMap = {}
-        self.areas = []
-        for areaName, areaPopulation in areaInfo:
-            areaOb = SI(beta, c)
-            infected = 0 if initInfection[0] != areaName else initInfection[1]
-            areaOb.setInitial(areaPopulation - infected, infected, 0)
-            self.areaMap[areaName] = areaOb
-            self.areas.append(areaOb)
-        self.transition_matrix = transition_matrix
+    def __init__(self, transition_matrix, population, source, param_est=None, beta=0.2, c=0.25):
+        self.areas = list()
+        self.n_countries = len(population)
+        self.param_est = param_est
+        for country, popu in population.items():
+            epi = SI(country, beta, c)
+            epi.setInitial(popu - source.get(country, 0), source.get(country, 0), 0)
+            self.areas.append(epi)
+            
+        self.transition_matrix = np.asarray(transition_matrix)
         self.timeStamp = 0
 
     def next(self):
-        sOut = np.zeros((len(self.areas), ))
-        iOut = np.zeros((len(self.areas), ))
         sIn = np.zeros((len(self.areas), ))
         iIn = np.zeros((len(self.areas), ))
-        
-        
+        sOut = np.asarray([a.S for a in self.areas])
+        iOut = np.asarray([a.I for a in self.areas])
+
         for i, a in enumerate(self.areas):
-            sOut[i] = np.sum(self.transition_matrix[i,:]) * a.S
-            iOut[i] = np.sum(self.transition_matrix[i,:]) * a.I
-            sIn += a.S * self.transition_matrix[i,:]
+            sIn += a.S * self.transition_matrix[i,:] 
             iIn += a.I * self.transition_matrix[i,:]
 
         for a, si, so, ii, io in zip(self.areas, sIn, sOut, iIn, iOut):
-            a.nextState(si, so, ii, io)
+            if self.param_est:
+                a.nextState(si, so, ii, io, self.param_est.predict([self.timeStamp])[0])
+            else:
+                a.nextState(si, so, ii, io)
         self.timeStamp += 1
 
     def getState(self):
@@ -43,44 +43,34 @@ class Runner:
         return stateMap
 
     def getHistory(self):
-        historyList = []
-        for t in range(self.timeStamp):
-            stateMap = {}
-            for area in self.areaMap:
-                stateMap[area] = self.areaMap[area].history[t]
-            historyList.append(stateMap)
-        return historyList
+        return {area.name: area.history for area in self.areas}
 
 
 if __name__ == '__main__':
-    areaInfo = [("China", 100), ("United States", 100), ("Mars", 100)]
+    population = {"China": 100, "United States": 100, "Mars": 100}
     transition_matrix = np.asarray([
         [0.87, 0.1, 0.03],
         [0.1, 0.8, 0.1],
         [0.1, 0.1, 0.8]
     ])
-    initInfection = ["China", 5]
+    source = {"China": 5}
     beta = 0.5
     c = 0.25
-    r = Runner(areaInfo,transition_matrix,initInfection,beta,c)
-    hist = []
+    r = Runner(transition_matrix, population, source, beta=beta, c=c)
+    
     for _ in range(100):
         r.next()
+
+    hist = {}
     history = r.getHistory()
-    for h in history:
-        hist.append(
-            {
-                "China": h["China"]["I"],
-                "United States": h["United States"]["I"],
-                "Mars": h["Mars"]["I"],
-            })
+    for c, h in history.items():
+        hist[c] = [hh["I"] for hh in h]
+    
     import matplotlib.pyplot as plt
-    cn = [h['China'] for h in hist]
-    us = [h['United States'] for h in hist]
-    ms = [h['Mars'] for h in hist]
-    plt.plot(cn, label="cn")
-    plt.plot(us, label="us")
-    plt.plot(ms, label="ms")
+
+    plt.plot(hist['China'], label="cn")
+    plt.plot(hist['United States'], label="us")
+    plt.plot(hist['Mars'], label="ms")
     plt.legend()
     plt.show()
     
