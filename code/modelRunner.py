@@ -20,9 +20,9 @@ class Runner:
         self.timeStamp = 0
 
     def next(self):
+        areas = [a.copy() for a in self.areas]
         for i,a in enumerate(self.areas):
             sIn, sOut, iIn, iOut = 0,0,0,0
-            areas = [a.copy() for a in self.areas]
             for j,b in enumerate(areas):
                 sOut += self.transition_matrix[i,j] * (1 - a.ratio) * a.N
                 sIn += self.transition_matrix[j,i] * (1 - b.ratio) * b.N
@@ -60,6 +60,7 @@ if __name__ == '__main__':
     r = Runner(areaInfo,transition_matrix,initInfection,beta,c)
     while (input() != '.'):
         r.next()
+        print(len(r.getHistory()))
 
 
 
