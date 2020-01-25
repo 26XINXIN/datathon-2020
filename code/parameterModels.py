@@ -1,7 +1,7 @@
 # models for predicting parameters
 
 from sklearn.linear_model import LinearRegression
-
+from sklearn.ensemble import RandomForestRegressor
 
 class LinearModel:
     def __init__(self, features, normalize=True):
@@ -19,3 +19,8 @@ class LinearModel:
     
     def score(self, X, y):
         return self.lr.score(X, y)
+
+class RandomForest:
+    def __init__(self, ntree=500):
+        self.rg = RandomForestRegressor(n_estimators=500)
+        
