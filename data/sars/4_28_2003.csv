@@ -1,4 +1,4 @@
-Country,Cumulative number of case(s)^2,Number of new cases since last WHO update^2,Final status/ Number of deaths,Final status/ Number recovered^3,Local chain(s) of transmission^4,Date of last report
+Country,Cumulative number of case(s),Number of new cases since last WHO update^2,Final status/ Number of deaths,Final status/ Number recovered^3,Local chain(s) of transmission^4,Date of last report
 Australia,4,0,0,3,None,28/Apr/2003
 Brazil,2,0,0,2,None,24/Apr/2003
 Bulgaria,1,0,0,0,None,24/Apr/2003
