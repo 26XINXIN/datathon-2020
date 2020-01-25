@@ -23,10 +23,10 @@ class Runner:
         for i,a in enumerate(self.areas):
             sIn, sOut, iIn, iOut = 0,0,0,0
             for j,b in enumerate(self.areas):
-                sOut += self.transition_matrix[i,j] * (1 - a.ratio)
-                sIn += self.transition_matrix[j,i] * (1 - b.ratio)
-                iOut += self.transition_matrix[i,j] * a.ratio
-                iIn += self.transition_matrix[j,i] * b.ratio
+                sOut += self.transition_matrix[i,j] * (1 - a.ratio) * a.N
+                sIn += self.transition_matrix[j,i] * (1 - b.ratio) * b.N
+                iOut += self.transition_matrix[i,j] * a.ratio * a.N
+                iIn += self.transition_matrix[j,i] * b.ratio * b.N
             a.nextState(sIn,sOut,iIn,iOut)
         self.timeStamp += 1
 
