@@ -64,7 +64,7 @@ class SI(EpiModel):
 
     def copy(self):
         copy = SI(self.beta, self.c)
-        copy.set(self.N, self.S, self.I, self.timestamp, self.ratio, self.history)
+        copy.set(self.N, self.S, self.I, self.timestamp, self.ratio, list(self.history))
         return copy
 
 class SIR(EpiModel):
