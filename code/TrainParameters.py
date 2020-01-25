@@ -22,12 +22,13 @@ def read_population(path):
     return data[["Country Name", "2003"]].values
     
 
-def extract_training_data(data, population):
+def extract_training_data(data, population, temperature):
     population = {c[0]: c[1] for c in population}
     dI = data[1:, :] - data[:-1, :]
     dI = np.concatenate((np.zeros((1, data.shape[1])), dI), axis=0)
     I = data
     S = np.zeros(data.shape)
+    T = np.zeros(data.shape)
     countries =  ['Canada', 'China', 'France', 'Germany', 'Hong Kong', 'Italy', 'Ireland', 
                   'Singapore', 'Spain', 'Switzerland', 'Taiwan', 'Thailand', 'United Kingdom', 
                   'United States', 'Vietnam', 'Australia', 'Brazil', 'Bulgaria', 'Macau', 'Indonesia', 
@@ -48,9 +49,10 @@ def extract_training_data(data, population):
                 S[i, j] = 144600000 - data[i, j]
             else:
                 S[i, j] = population[c] - data[i, j]
+            T[i, j] = temperature.loc[i, c]
     dS = S[1:, :] - S[:-1, :]
     dS = np.concatenate((np.zeros((1, data.shape[1])), dS), axis=0)
-    return S[:-1,:], I[:-1,:], dS[:-1,:], dI[:-1,:], - dS[1:,:] / (S[:-1,:] * I[:-1,:] + 0.001) * (S[:-1,:] + I[:-1,:]) # last dS and dI 
+    return S[:-1,:], I[:-1,:], dS[:-1,:], dI[:-1,:], T[:-1,:], - dS[1:,:] / (S[:-1,:] * I[:-1,:] + 0.001) * (S[:-1,:] + I[:-1,:]) # last dS and dI 
 
 def plotFactor(X, y):
     lr = LinearRegression()
@@ -62,41 +64,44 @@ def plotFactor(X, y):
     # ax.set_ylim(-100, 100)
     plt.show()
 
-def datafilter(T, S, I, dS, dI, y):
-    nt, ns, ni, nds, ndi, ny = list(), list(), list(), list(), list(), list()
-    for t, s, i, ds, di, yy in zip(T, S, I, dS, dI, y):
+def datafilter(t, S, I, dS, dI, T, y):
+    nt, ns, ni, nds, ndi, nT, ny = list(), list(), list(), list(), list(), list(), list()
+    for t, s, i, ds, di, tt, yy in zip(t, S, I, dS, dI, T, y):
         if i != 0 and yy >= 0 and di < 100:
             nt.append(t)
             ns.append(s)
             ni.append(i)
             nds.append(ds)
             ndi.append(di)
+            nT.append(tt)
             ny.append(yy)
-    return np.asarray(nt), np.asarray(ns), np.asarray(ni), np.asarray(nds), np.asarray(ndi), np.asarray(ny)
+    return np.asarray(nt), np.asarray(ns), np.asarray(ni), np.asarray(nds), np.asarray(ndi), np.asarray(nt), np.asarray(ny)
 
 if __name__ == "__main__":
     data = read_data('../data/sars.csv')
     population = read_population('../data/population.csv')
-    S, I, dS, dI, beta_c = extract_training_data(data, population)
+    temperature = pd.read_csv('../data/temperature')
+    S, I, dS, dI, T, beta_c = extract_training_data(data, population, temperature)
     beta_c = signal.savgol_filter(beta_c, 5, 2, axis=0)
     t = np.repeat(np.arange(beta_c.shape[0]).reshape(-1, 1), beta_c.shape[1], axis=1).reshape(-1,)
     S = S.reshape(-1,)
     I = I.reshape(-1,)
+    T = T.reshape(-1,)
     dS = dS.reshape(-1,)
     dI = dI.reshape(-1,)
     
     beta_c = beta_c.reshape(-1,)
     
 
-    t, S, I, dS, dI, beta_c = datafilter(t, S, I, dS, dI, beta_c)
+    t, S, I, dS, dI, T, beta_c = datafilter(t, S, I, dS, dI, T, beta_c)
     
-    beta_c = np.log(beta_c+0.001)
+    beta_c = np.log(beta_c+0.0001)
     
     # plt.plot(beta_c, '.')
     # plt.show()
-    # plotFactor(S, beta_c)
+    # plotFactor(T, beta_c)
     
-    X = np.asarray(list(zip(t, S, I, dS, dI)))
+    X = np.asarray(list(zip(t, S, I, dS, dI, T)))
     y = beta_c
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 

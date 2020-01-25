@@ -63,6 +63,7 @@ if __name__ == '__main__':
     data = read_data('../data/sars.csv')
     population = read_population('../data/population.csv')
     population = {c: p for c, p in population if c != 'Not classified'}
+    # temperature = pd.read_csv("../data/")
     with open("../data/countries.txt") as f:
         countries = [line.strip('\n') for line in f]
     transition_matrix = pd.read_csv('../data/trans.csv', index_col=False, header=None, names=countries)
