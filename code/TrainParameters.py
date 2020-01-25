@@ -112,7 +112,7 @@ if __name__ == "__main__":
     # print(y_test)
     rg = RandomForestRegressor(n_estimators=500)
     rg.fit(X_train, y_train)
-    dump(rg, '../model/randomForest500') 
+    # dump(rg, '../model/randomForest500') 
     print(rg.score(X_test, y_test))
     plt.plot(rg.predict(X_test), y_test, '.')
     plt.show()
