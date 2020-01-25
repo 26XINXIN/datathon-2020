@@ -1,4 +1,4 @@
-Country,Total number of case(s),Number of deaths,Local transmission
+Country,Cumulative number of case(s),Number of deaths,Local transmission
 Germany,1,0,None*
 Canada,8,2,Yes
 Singapore,20,0,Yes
