@@ -35,33 +35,35 @@ class SI(EpiModel):
         self.history = history
 
     def setInitial(self, S, I, timestamp):
+        self.dS = 0
+        self.dI = 0
         self.S = S
         self.I = I
         self.N = S + I
         self.timestamp = timestamp
-        self.history.append(self.makeHistory(0, 0))
+        self.history.append(self.makeHistory())
     
     def nextState(self, sIn, sOut, iIn, iOut, beta_c=None):
         if beta_c:
             self.ratio = beta_c * self.I / self.N
         else:
             self.ratio = self.beta * self.c * self.I / self.N
-        dS = -self.ratio * self.S + sIn - sOut
-        dI = self.ratio * self.S + iIn - iOut
-        self.S += dS
-        self.I += dI
+        self.dS = -self.ratio * self.S + sIn - sOut
+        self.dI = self.ratio * self.S + iIn - iOut
+        self.S += self.dS
+        self.I += self.dI
         self.N += sIn - sOut + iIn - iOut
         self.timestamp += 1
-        self.history.append(self.makeHistory(dS, dI))
+        self.history.append(self.makeHistory())
 
-    def makeHistory(self, dS, dI):
+    def makeHistory(self):
         historyOb = {
             "name": self.name,
             "timestamp": self.timestamp,
             "S": self.S,
             "I": self.I,
-            "dS": dS,
-            "dI": dI
+            "dS": self.dS,
+            "dI": self.dI
         }
         return historyOb
 
@@ -97,9 +99,9 @@ class SIR(EpiModel):
         self.history.append(self.makeHistory(0, 0, 0))
 
     def nextState(self, sIn, sOut, iIn, iOut):
-        dS = - self.ratio * self.S + self.b * self.N - self.mu_s * self.S + sIn - sOut
-        dI = self.ratio * self.S - self.v * self.I - self.mu_i * self.S + iIn - iOut
-        dR = self.v * self.I - self.mu_r * self.R
+        self.dS = - self.ratio * self.S + self.b * self.N - self.mu_s * self.S + sIn - sOut
+        self.dI = self.ratio * self.S - self.v * self.I - self.mu_i * self.S + iIn - iOut
+        self.dR = self.v * self.I - self.mu_r * self.R
         self.S += dS
         self.I += dI
         self.R += dR

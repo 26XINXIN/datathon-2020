@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import SVR
 from scipy import signal
+from joblib import dump, load
 
 def read_data(path):
     data = list()
@@ -93,7 +94,7 @@ if __name__ == "__main__":
     
     # plt.plot(beta_c, '.')
     # plt.show()
-    plotFactor(S, beta_c)
+    # plotFactor(S, beta_c)
     
     X = np.asarray(list(zip(t, S, I, dS, dI)))
     y = beta_c
@@ -106,6 +107,7 @@ if __name__ == "__main__":
     # print(y_test)
     rg = RandomForestRegressor(n_estimators=500)
     rg.fit(X_train, y_train)
+    dump(rg, '../model/randomForest500') 
     print(rg.score(X_test, y_test))
     plt.plot(rg.predict(X_test), y_test, '.')
     plt.show()
