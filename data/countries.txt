@@ -1,0 +1,225 @@
+Russia
+United Arab Emirates
+Uzbekistan
+Turkey
+Kazakhstan
+Tajikistan
+Kyrgyzstan
+China
+India
+Afghanistan
+Germany
+Iran
+Cyprus
+Italy
+Greece
+Ireland
+Portugal
+United Kingdom
+Austria
+Latvia
+France
+Ukraine
+Romania
+Azerbaijan
+Switzerland
+Sweden
+Spain
+Netherlands
+Israel
+Hungary
+Finland
+Czech Republic
+Poland
+Georgia
+Armenia
+Lithuania
+Lebanon
+Turkmenistan
+Thailand
+Malaysia
+Singapore
+South Korea
+Japan
+Belarus
+Hong Kong
+Vietnam
+Belgium
+Montenegro
+Egypt
+Dominican Republic
+Croatia
+Tunisia
+Jordan
+Moldova
+Sri Lanka
+Qatar
+United States
+Malta
+Cuba
+Bulgaria
+Cote d'Ivoire
+Ghana
+Senegal
+Burkina Faso
+Norway
+Brazil
+Cameroon
+Nigeria
+Djibouti
+Kenya
+Morocco
+Bangladesh
+Saudi Arabia
+Nepal
+Oman
+Pakistan
+Serbia
+Macedonia
+Algeria
+Bosnia and Herzegovina
+South Africa
+Denmark
+Libya
+Bahrain
+Kuwait
+Canada
+Albania
+Uganda
+Luxembourg
+Ethiopia
+Congo (Kinshasa)
+Rwanda
+Tanzania
+Gabon
+Slovenia
+Chad
+Maldives
+Estonia
+Sudan
+Iraq
+Yemen
+Mongolia
+Mexico
+Mauritius
+Seychelles
+Slovakia
+Philippines
+Brunei
+Netherlands Antilles
+Guernsey
+Jersey
+Colombia
+Taiwan
+Antigua and Barbuda
+Argentina
+Venezuela
+Puerto Rico
+Barbados
+Jamaica
+Angola
+Iceland
+Namibia
+Cape Verde
+Sierra Leone
+Gibraltar
+Bahamas
+Australia
+Cambodia
+Burma
+Indonesia
+Macau
+New Zealand
+Laos
+Madagascar
+Guam
+Fiji
+Papua New Guinea
+South Sudan
+Zambia
+Somalia
+Gambia
+Peru
+Ecuador
+Costa Rica
+Chile
+Uruguay
+Panama
+El Salvador
+Bolivia
+Equatorial Guinea
+Northern Mariana Islands
+French Polynesia
+Palau
+New Caledonia
+Eritrea
+Mali
+Sao Tome and Principe
+Mozambique
+Togo
+Liberia
+Guatemala
+Nicaragua
+Belize
+Honduras
+Trinidad and Tobago
+Cayman Islands
+East Timor
+Mauritania
+Bermuda
+Saint Lucia
+Isle of Man
+North Korea
+Benin
+Niger
+Guinea
+Martinique
+Congo (Brazzaville)
+Reunion
+Aruba
+Suriname
+Greenland
+Faroe Islands
+Paraguay
+Haiti
+Turks and Caicos Islands
+Virgin Islands
+Grenada
+Guyana
+Cook Islands
+Guadeloupe
+Saint Kitts and Nevis
+Guinea-Bissau
+Central African Republic
+Western Sahara
+Burundi
+Comoros
+Zimbabwe
+Malawi
+Botswana
+French Guiana
+Lesotho
+Swaziland
+Dominica
+Anguilla
+British Virgin Islands
+Saint Pierre and Miquelon
+Bhutan
+Micronesia
+Samoa
+Kiribati
+American Samoa
+Marshall Islands
+Tonga
+Vanuatu
+Norfolk Island
+Solomon Islands
+Saint Vincent and the Grenadines
+Mayotte
+Niue
+Nauru
+Christmas Island
+Wallis and Futuna
+Cocos (Keeling) Islands
+Tuvalu
+Falkland Islands
