@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+\usepackage{lineno, blindtext,  enumerate, algorithmic }
+\usepackage{amssymb} 
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{subcaption}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+
+\usepackage{apacite}
+\bibliographystyle{apacite}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+\newcommand{\ans}{\ensuremath{\mathbf{ANS.}\quad}}
+% \newcommand{\proof}{\ensuremath{\mathbf{PROOF.}\quad}}
+\newcommand{\todo}{{\color{red}TODO}}
+\newcommand{\solved}{{\color{green}SOLVED}}
+\newcommand{\question}[1]{{\item {\bf #1}}}
+
+\renewcommand{\baselinestretch}{1.0}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\topmargin}{0.0in}
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\headsep}{0in}
+\setlength{\parindent}{0in}
+\newcommand{\utwi}[1]{\mbox{\boldmath $ #1$}}
+\pagestyle{plain}
+\includeonly{}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\begin{document}
+
+\begin{align*}
+    & \frac{dS}{dt} = \beta c \frac{I}{N} \\
+    \implies &f := \beta c = \frac{I}{N} \left(\frac{dS}{dt}\right)^{-1}
+\end{align*}
+
+
+\end{document}
