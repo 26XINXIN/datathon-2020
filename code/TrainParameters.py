@@ -51,19 +51,21 @@ def plotFactor(X, y):
 if __name__ == "__main__":
     data = read_data('../data/sars.csv')
     population = read_population('../data/population.csv')
-    S, I, dS, dI, beta_c = extract_training_data(data, population)
+    I, S, dS, dI, beta_c = extract_training_data(data, population)
+    print(S)
     S = S.reshape(-1,)
     I = I.reshape(-1,)
     dS = dS.reshape(-1,)
     dI = dI.reshape(-1,)
     beta_c = beta_c.reshape(-1,)
+    print(S)
     
     plotFactor(S, beta_c)
 
-    # X = np.asarray(list(zip(S, I, dS, dI)))
-    # y = beta_c
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    X = np.asarray(list(zip(S, I, dS, dI)))
+    y = beta_c
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-    # predictor = LinearModel(["S", "I", "dS", "dI"])
-    # predictor.train(X_train, y_train)
-    # print(predictor.score(X_test, y_test))
+    predictor = LinearModel(["S", "I", "dS", "dI"])
+    predictor.train(X_train, y_train)
+    print(predictor.score(X_test, y_test))

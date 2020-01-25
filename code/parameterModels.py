@@ -9,7 +9,7 @@ class LinearModel:
         self.features = features
     
     def train(self, X, y):
-        self.lr.fit(X, y, verbose=True)
+        self.lr.fit(X, y)
     
     def predict(self, x):
         return self.lr.predict(x)
